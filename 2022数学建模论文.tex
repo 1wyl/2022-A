@@ -1,0 +1,1187 @@
+\documentclass[a4paper,12pt]{article} 
+\usepackage{ctex}
+\usepackage{amsmath,amssymb}
+\usepackage[left=2.5cm,right=2.5cm,bottom=2.2cm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{longtable}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{float}
+\linespread{1.8}
+\newcommand{\upcite}[1]{\textsuperscript{\textsuperscript{\cite{#1}}}}
+%\lstset{
+%	basicstyle          =   \sffamily,          % 基本代码风格
+%	keywordstyle        =   \bfseries,          % 关键字风格
+%	commentstyle        =   \rmfamily\itshape,  % 注释的风格，斜体
+%	stringstyle         =   \ttfamily,  % 字符串风格
+%	flexiblecolumns,                % 别问为什么，加上这个
+%	numbers             =   left,   % 行号的位置在左边
+%	showspaces          =   false,  % 是否显示空格，显示了有点乱，所以不现实了
+%	numberstyle         =   \zihao{-5}\ttfamily,    % 行号的样式，小五号，tt等宽字体
+%	showstringspaces    =   false,
+%	captionpos          =   t,      % 这段代码的名字所呈现的位置，t指的是top上面
+%	frame               =   lrtb,   % 显示边框
+%}
+%
+%\lstdefinestyle{Python}{
+%	language        =   Python, % 语言选Python
+%	basicstyle      =   \zihao{-5}\ttfamily,
+%	numberstyle     =   \zihao{-5}\ttfamily,
+%	keywordstyle    =   \color{blue},
+%	keywordstyle    =   [2] \color{teal},
+%	stringstyle     =   \color{magenta},
+%	commentstyle    =   \color{red}\ttfamily,
+%	breaklines      =   true,   % 自动换行，建议不要写太长的行
+%	columns         =   fixed,  % 如果不加这一句，字间距就不固定，很丑，必须加
+%	basewidth       =   0.5em,
+%}
+\usepackage{listings}
+
+\lstset{
+	%backgroundcolor=\color{red!50!green!50!blue!50},%代码块背景色为浅灰色
+	%	rulesepcolor= \color{gray}, %代码块边框颜色
+	breaklines=true,  %代码过长则换行
+	numbers=left, %行号在左侧显示
+	numberstyle= \small,%行号字体
+	%keywordstyle= \color{blue},%关键字颜色
+	commentstyle=\color{gray}, %注释颜色
+	%	frame=shadowbox%用方框框住代码块
+	frame=single，
+	escapeinside=``    % 代码包含中文
+}
+
+\newcommand{\titleformat}[1]{{\centering{\Large\textbf{#1}}
+		
+	}\par}%标题用\titleformat控制
+\newcommand{\gjcformat}[1]{\noindent\normalsize\textbf{#1}}
+%关键词用\gjcformat控制
+\newcommand{\format}[1]{{\centering{\normalsize\textbf{#1}}
+		
+	}	\par}%其他用\format控制
+\newcommand{\biaoti}[1]{\titleformat{#1}}
+%\newcommand{\biaoti}[1]{{\centering{\textbf{#1}}
+		%	
+		%}\par}%标题内容：字号、字体待定。
+\newcommand{\zhaiyao}[1]{\format{摘要}#1\par\quad\par}
+
+\newcommand{\guanjianci}[5]{\gjcformat{关键词：}#1\quad #2\quad #3\quad #4\quad #5\par\quad\par}
+%关键词和内容：字体、字号待定。
+
+\begin{document}
+	\biaoti{基于差分法和模拟退火法的波浪能最大输出功率设计}
+	\zhaiyao{本文通过建立\textbf{微分方程模型}用\textbf{差分法}研究波浪能装置的运动过程，并在此基础上使用\textbf{模拟退火法}求出阻尼器在不同条件下使得波浪能装置\textbf{输出功率最大}的\textbf{阻尼系数}。\upcite{ref1}\par
+	对于问题一，先用牛顿第二定律和速度的定义确定\textbf{微分方程模型}，再通过使用\textbf{差分法}和对初值条件的\textbf{迭代}分别计算出阻尼器的阻尼系数为常值10000$N\cdot s\cdot m^{-1}$时和阻尼系数与浮子和振子的相对速度的绝对值的幂成正比时浮子和振子在波浪激励力作用下在前40个波浪周期的垂荡位移和速度。\par
+	对与问题二，先随机产生一个变量值，然后用\textbf{模拟退火}的方法在一定温度下不断产生新解或保留解然后逐渐降温得到稳定的最优解：第一小问的\textbf{最大输出功率}为280$W$,\textbf{最优阻尼系数}为37200$N\cdot s\cdot m^{-1}$，第二小问的的\textbf{最大输出功率}为280$W$，而\textbf{最优阻尼系数}的比例系数和幂系数的组合并不唯一，其中一种组合是比例系数为42796，幂系数为0.063146。\par
+	对于问题三，利用\textbf{微分方程模型}将垂荡和纵摇运动放在极小的时间尺度内研究，从而可以以较小的误差假设垂荡和纵摇互不影响实现运算简化。然后利用牛顿第二运动定律和差分法将两个运动分别求解，得到浮子和振子在各个时刻的垂荡位移与速度和纵摇角位移与角速度。\par
+	对于问题四，在假设垂荡和纵摇互不影响的前提下，可以采用与问题二相同的\textbf{模拟退火法}求解，通过观察计算机的多次运算结果发现最大输出功率为492$W$,两个阻尼器的阻尼系数搭配并不唯一，其中一种搭配是直线阻尼器的阻尼系数为20420，旋转阻尼器的\textbf{阻尼系数}为84657。}
+	%关键词
+	\guanjianci{微分方程模型}{差分法}{模拟退火法}{阻尼系数}{最大输出功率}
+	\newpage
+	\section{问题重述}
+	\subsection{问题背景}
+	随着全球经济的发展，人类对于能源的需求量不断增大，由化石能源的过度使用产生的温室效应对人类自身的威胁逐渐显现时，清洁的可再生能源就自然而然的进入人类视线。波浪能就是一种绿色清洁的并且取之不尽，用之不竭的可再生能源，如果能有效利用这种能源，那将是人类的福音,而能否高效率的利用波浪能便是能否大面积推广的关键因素之一。
+	\subsection{问题提出}
+	波浪能装置是由浮子，振子、中轴和能量输出系统（包括弹簧和阻尼器）组成的装置，它能够将波浪能俘获转化成为机械能进而转化为人类可用的电能。波浪装置的参数在附件4给出，请建立数学模型解决以下问题：\\
+	\textbf{问题一}：假设浮子只做垂荡运动，建立浮子和振子的运动模型，分别计算当直线阻尼器的阻尼系数为 10000 N·s/m和直线阻尼器的阻尼系数与浮子和振子的相对速度的绝对值的0.5次幂成正比，其中比例系数取 10000时浮子和振子在波浪激励力作用下前 40 个波浪周期内时间间隔为 0.2 s 的垂荡位移和速度并将计算结果分别存放在表格result1-1.xlsx 和表格result1-2.xlsx 中。再对两种情况分别列出10 s、20 s、40 s、60 s、100 s 时浮子与振子的垂荡位移和速度。\\
+	\textbf{问题二}：假设浮子只做垂荡运动，利用附件3和附件4中的参数值分别建立阻尼系数为0到100000的某个常量时和阻尼系数与浮子和振子的相对速度的绝对值的幂成正比，比例系数是0到100000的某个值，幂指数是0到1内某个值时直线阻尼器的最优阻尼系数的数学模型使得能量输出系统系统的平均输出功率最大并分别求出两种情况下的最大输出功率和相应的阻尼系数。\\
+	\textbf{问题三}：假设浮子只做垂荡和纵摇运动，利用附件3和附件4中的参数值建立浮子与振子的运动模型计算浮子与振子在波浪激励力和波浪激励力矩作用下前 40 个波浪周期内时间间隔为 0.2 s的垂荡位移与速度和纵摇角位移与角速度并将结果存放在表格result3.xlsx 中同时在论文中分别给出 10 s、20 s、40 s、60 s、100 s 时刻，浮子与振子的垂荡位移与速度和纵摇角位移与角速度。其中直线阻尼器的阻尼系数为10000 N·s/m，旋转阻尼器的阻尼系数为1000 N·m·s。\\
+	\textbf{问题四}：假设浮子在波浪中只做垂荡和纵摇运动，利用附件3和附件4中的参数值建立确定直线阻尼器和旋转阻尼器最优阻尼系数的数学模型计算当直线阻尼器和旋转阻尼器的阻尼系数都在0到100000范围取值时的最大输出功率并给出与此对应的两个最优阻尼系数。
+	\section{问题分析}
+	\subsection{问题一的分析}
+	问题一需要求出在给定直线阻尼器阻尼系数和波浪激励力的情况下计算浮子与振子在某个时刻的垂荡位移和速度。
+	由于模型涉及瞬时速度和变力，自然而然用到牛顿第二定律和微分方程，然后结合初值条件再通过差分法进行各个时刻对力的求解，最后通过差分后的方程进行迭代求出各个时刻的垂荡位移和速度。
+	\subsection{问题二的分析}
+	问题二需要求出最优阻尼系数使得输出功率最大，这是一个优化问题。问题二的第一种情况只有一个变量需要求最优解，可以采用变步长模拟退火算法；问题二的第二种情况有两个变量需要同时求最优解，可以对双变量随机初始化，然后分别对每一个变量使用模拟退火算法，通过多次运行取最大则可以找到全局最优解，避免结果落入局部最优解。
+	\subsection{问题三的分析}
+	问题三需要求出在给定直线阻尼器阻尼系数、旋转阻尼器阻尼系数、波浪激励力和波浪激励力矩的情况下计算浮子与振子在某个时刻的垂荡位移和速度和纵摇角位移与角速度。问题三与问题一相比，浮子的运动增加了纵摇，在问题一的条件基础上增加了波浪激励力矩和旋转阻尼器，与第一问基本相似，只要假设在极短的时间间隔内，垂荡和纵摇两个运动是分别进行的就可以忽略两者的相互影响，从而将问题分解成两个与第一问相似的问题，同样可以使用差分迭代的方法求解出各个时刻浮子与振子的垂荡位移与速度和纵摇角位移与角速度。
+	\subsection{问题四的分析}
+	问题四需要求直线阻尼器和旋转阻尼器阻的最优阻尼系数使得输出功率最大。与问题二的第二种情况一样有两个变量需要求最优，故仍然可以采用模拟退火算法算法多次运行找到全局最优解。
+	\section{模型假设}
+	\noindent1、忽略中轴、底座、隔层及 PTO的质量和各种摩擦。\\
+	2、假设在0.01s内，速度、加速度、角速度和角加速度恒定。\\
+	3、假设在极短时间内垂荡和纵摇分别独立运动，不会互相影响。\\
+	4、假设问题一和问题二中向上为正方向，假设问题三和问题四中浮子的竖直向上为正方向，忽略水平方向的速度和位移，以绕圆锥顶点顺时针方向为正方向，振子以和中轴平行向上的方向为正方向，以绕转轴中心顺时针为正方向。\\
+	5、假设问题一和问题二中浮子的锥体部分不会浮出水面。\\
+	6、平均功率由前40个周期的平均功率决定。\\
+	7、纵摇时振子底面到转轴中心点的距离近似等于弹簧的长度。\par
+	在一个极小的时间间隔内，速度和加速度的变化是极其有限的，所以将一个计算时间内的速度、加速度看作恒定的值是合理的;
+	将短时间内的垂荡和纵摇看作两个独立的运动可以有效避免繁杂的受力分析并得到合理近似的计算结果，所以假设三是合理且必要的.
+	\section{符号说明}
+	\setlength\LTleft{0pt}
+	\setlength{\tabcolsep}{25pt}
+	\begin{longtable}{cccc}
+		\\\hline
+		\textbf{序号}&\textbf{符号}&\textbf{含义}&\textbf{单位}\\
+		\hline
+		$1$&$v_1$&浮子的速度&$m\cdot s^{-1}$\\\hline
+		$2$&$v_2$&振子的速度&$m\cdot s^{-1}$\\\hline
+		$3$&$s_1$&浮子的位移&$m$\\\hline
+		$4$&$s_2$&振子的位移&$m$\\\hline
+		$5$&$m_1$&浮子的质量&$kg$\\\hline
+		$6$&$m_2$&振子的质量&$kg$\\\hline
+		$7$&$m_3$&垂荡附加质量&$kg$\\\hline
+		$8$&$f_1$&静水恢复力&$N$\\\hline
+		$9$&$f_2$&弹簧弹力&$N$\\\hline
+		$10$&$f_3$&直线阻尼器阻力&$N$\\\hline
+		$11$&$f_4$&兴波阻尼力&$N$\\\hline
+		$12$&$f_5$&波浪激励力&$N$\\\hline
+		$13$&$f_6$&重力偏移中轴产生的偏差力&$N$\\\hline
+		$14$&$f$&波浪激励力振幅&$N$\\\hline 
+		$15$&$\omega$&波浪频率&$s^{-1}$\\\hline 
+		$16$&$W_1$&直线阻尼器做功&$J$\\\hline 
+		$17$&$y_1$&直线阻尼器的幂系数&-\\\hline
+		$18$&$\omega_1$&浮子的角速度&$s^{-1}$\\\hline
+		$19$&$\omega_2$&振子的角速度&$s^{-1}$\\\hline
+		$20$&$\theta_1$&浮子的偏转角&$rad$\\\hline
+		$21$&$\theta_2$&振子的偏转角&$rad$\\\hline
+		$22$&$I_1$&振子的转动惯量&$kg\cdot m^2$\\\hline
+		$23$&$I_2$&浮子的转动惯量&$kg\cdot m^2$\\\hline
+		$24$&$I_3$&浮子的附加转动惯量&$kg\cdot m^2$\\\hline
+		$25$&$M_1$&静水恢复力矩&$N\cdot m$\\\hline 
+		$26$&$M_2$&扭转弹簧力矩&$N\cdot m$\\\hline
+		$27$&$M_3$&旋转阻尼器力矩&$N\cdot m$\\\hline
+		$28$&$M_4$&兴波阻尼力矩&$N\cdot m$\\\hline
+		$29$&$M_5$&波浪激励力矩&$N\cdot m$\\\hline
+		$30$&$M_6$&浮子的重力矩&$N\cdot m$\\\hline
+		$31$&$M_7$&振子的重力矩&$N\cdot m$\\\hline
+		$32$&$W_2$&旋转阻尼器做功&$J$\\\hline
+		$33$&$f$&波浪激励力振幅&$N$\\\hline
+		$34$&$L$&波浪激励力矩振幅&$N\cdot m$\\\hline
+		$35$&$a_1$&直线阻尼器的阻尼系数&$N\cdot s\cdot m^{-1}$\\\hline 
+		$36$&$a_2$&旋转阻尼器的阻尼系数&$N\cdot s\cdot m^{-1}$\\\hline
+		$37$&$k_1$&垂荡兴波阻尼系数&$N\cdot s\cdot m^{-1}$\\\hline  
+		$38$&$k_2$&纵摇兴波阻尼系数&$N\cdot m\cdot s$\\\hline
+		$39$&$k_3$&静水恢复力矩系数&$N\cdot m$\\\hline
+		$40$&$k_4$&扭转弹簧力矩系数&$N\cdot m$\\\hline
+		$41$&$k$&弹簧刚度&$N\cdot m$\\\hline  
+		$42$&$g$&重力加速度&$m\cdot s^{-2}$\\\hline 
+		$43$&$\rho$&海水的密度&$kg\cdot m^{-3}$\\\hline
+		$44$&$V_0$&初始浮子没入水中的体积&$m^3$\\\hline
+		$45$&$V$&实时浮子没入水中的体积&$m^3$\\\hline
+		$46$&$l_0 $&初始时弹簧的长度&$m$\\\hline
+		$47$&$l$&实时弹簧的长度&$m$\\\hline
+		$48$&$x_1$&浮子重心离圆锥顶点的距离&$m$\\\hline
+		$49$&$x_2$&振子重心离转轴中心点的距离&$m$\\\hline
+	\end{longtable}
+
+	\section{问题一模型的建立与求解}
+	\subsection{问题一模型的建立}
+	\subsubsection{问题复述}
+	问题一只考虑波浪能装置垂荡的情况，有两个小问，需要分别求出直线阻尼器的阻尼系数为10000$N\cdot s\cdot m^{-1}$和直线阻尼器的阻尼系数与浮子和振子的相对速度的绝对值的幂成正比，比例系数取 10000，幂指数取 0.5时浮子和振子在波浪激励力作用下各个时刻的垂荡位移和速度。
+	\subsubsection{建模分析}
+	问题一的两个小问都是给出直线阻尼器的阻尼系数求浮子和振子的运动模型，所以两个小问都可以采用微分法来建模，用差分法求解。
+	受力图
+	\subsubsection{模型建立}
+	对浮子进行受力分析，由牛顿第二运动定律得：
+	$$(m_1+m_3)\frac{dv_1}{dt}=f_1+f_2+f_3+f_4+f_5$$
+	对振子进行受力分析，由牛顿第二运动定律得：
+	$$m_2\frac{dv_2}{dt}=-f_2-f_3$$
+	浮子的位移速度关系为
+	$$\frac{ds_1}{dt}=v_1$$
+	振子的位移速度关系为
+	$$\frac{ds_2}{dt}=v_2$$
+	由题意，差分方程的初值条件为：
+	$$s_1(0)=0$$
+	$$s_2(0)=0$$
+	$$v_1(0)=0$$
+	$$v_2(0)=0$$
+	静水恢复力为
+	$$f_1=-\rho g \pi r^2s_1$$
+	弹簧弹力
+	$$f_2=-k(s_1-s_2)$$
+	直线阻尼器阻力
+	$$f_3=-a_1(v_1-v_2)$$
+	兴波阻尼力
+	$$f_4=-k_1v_1$$
+	波浪激励力
+	$$f_5=f\cos\omega t$$
+	
+	\subsection{问题一模型的求解}
+	%\subsubsection{算法设计}
+	
+	\subsubsection{求解与分析}
+	令$dt=t_n-t_{n-1}$,$dv=v_1(n)-v_1(n-1)$,$t_n$表示第$n$个时刻，$v_1(n)$表示第$n$个时刻的$v_1$。\par
+	通过已知的初值条件，可由第n-1个时刻的速度，位移等已经求出的量，求出第n个时刻的第速度位移等未知的量。
+	由牛顿第二运动定律得
+	$$(m_1+m_3)\frac{v_1(n)-v_1(n-1)}{T}=f_1+f_2+f_3+f_4+f_5$$
+	$$m_2\frac{v_2(n)-v_2(n-1)}{T}=-f_2-f_3$$
+	浮子位移与速度关系
+	$$\frac{s_1(n)-s_1(n-1)}{T}=\frac{v_1(n)+v_1(n-1)}{2}$$
+	振子位移与速度关系
+	$$\frac{s_2(n)-s_2(n-1)}{T}=\frac{v_2(n)+v_2(n-1)}{2}$$
+%	$$(m_1+m_3)\frac{dv_1}{dt}=f_1+f_2+f_3+f_4+f_5$$
+%	$$m_2\frac{dv_2}{dt}=-f_2-f_3$$
+%	$$\frac{ds_1}{dt}=v_1$$
+%	$$\frac{ds_2}{dt}=v_2$$
+%	$$s_1(0)=0$$
+%	$$s_2(0)=0$$
+%	$$v_1(0)=0$$
+%	$$v_2(0)=0$$
+%	$$f_1=-\rho g \pi r^2s_1$$
+%	$$f_2=-k(s_1-s_2)$$
+%	$$f_3=-a_1(v_1-v_2)$$
+%	$$f_4=-k_1v_1$$
+%	$$f_5=f\cos\omega t$$
+	\subsubsection{结果检验}
+	经过运行程序，得到浮子和振子在各个时刻的位移和速度，详细数据见附录。其中浮子和振子在10s、20s、40s、60s、100s的位移和速度数据在下表列出，第一问数据见表2，第二问数据见表3。
+	\begin{table}[H]
+		\centering
+		\includegraphics[width=0.7\linewidth]{问题一1.png}
+		\caption{第一问各个时刻浮子和振子的位移和速度}
+		\label{fig:表1}
+	\end{table}
+	\begin{table}[H]
+		\centering
+		\includegraphics[width=0.7\linewidth]{问题一2.png}
+		\caption{第二问各个时刻浮子和振子的位移和速度}
+		\label{fig:表2}
+	\end{table}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\linewidth]{浮子速度位移.png}
+		\caption{第一问浮子速度位移}
+		\label{fig:图1}
+	\end{figure}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\linewidth]{振子速度位移.png}
+		\caption{第一问振子速度位移}
+		\label{fig:图2}
+	\end{figure}	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\linewidth]{第二问浮子速度位移.png}
+		\caption{第二问浮子速度位移}
+		\label{fig:图3}
+	\end{figure}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\linewidth]{第二问振子速度位移.png}
+		\caption{第二问振子速度位移}
+		\label{fig:图4}
+	\end{figure}	
+	图一图二分别表示第一问浮子和振子的速度位移变化图，图三图四分别表示第二问浮子和振子的速度位移变化图其中蓝色线条表示速度变化，黄色线条表示位移变化。通过观察浮子和振子的速度变化图像可以发现两者的速度与位移都在稳定位置0附近上下波动，波动幅度约为一个单位，再结合附件4中给出的浮子和振子的质量分析，运行结果符合实际贴近现实是合理的。
+	\section{问题二模型的建立与求解}
+	\subsection{问题二模型的建立}
+	\subsubsection{问题复述}
+	问题二只考虑波浪能装置垂荡的情况，有两个小问，需要分别求出当直线阻尼器的阻尼系数在区间$[0,100000]$变动时和阻尼系数与浮子和振子的相对速度的绝对值的幂成正比，比例系数在区间 $[0,100000]$ 内取值，幂指数在区间 $[0,1]$ 内取值的情况下使得波浪能装置具有最大输出功率的阻尼系数。
+	\subsubsection{建模分析}
+	第一问相当于求一个变量的最大值问题，问题二相当于求解双变量的最大值问题。
+	对于求最值的问题可以使用模拟退火法寻求最优解。
+	模拟退火法基本原理：\par
+	模拟退火算法是模拟固体退火过程中固体粒子内能逐渐降低到稳定态的特性在解空间中随机寻找目标函数的全局最优解。在符合条件时则更新原值为迭代后的值，若不符合条件，则以一定概率更新原值从而可以避免得到局部最优解。
+	\subsubsection{模型建立}
+	利用问题一的模型：
+	$$max\quad P=\frac{W}{40}\omega$$
+	$$W=\sum_{n=1}^{\frac{40}{T_1W}}W_n$$
+	$$W_n=f_3(n)|[s_1(n)-s_1(n-1)]-[s_2(n)-s_2(n-1)]|$$
+	\subsection{问题二模型的求解}
+	\subsubsection{算法设计}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\linewidth]{问题二1流程图.png}
+		\caption{第一问模拟退火流程}
+		\label{fig:表5}
+	\end{figure}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\linewidth]{问题二2流程图.png}
+		\caption{第二问模拟退火流程}
+		\label{fig:表6}
+	\end{figure}
+	%\subsubsection{求解与分析}
+	\subsubsection{求解与检验}
+	\begin{table}[H]
+		\centering
+		\includegraphics[width=0.7\linewidth]{模拟退火程序第一问运行结果.png}
+		\caption{第一问的三次运行结果}
+		\label{fig:表3}
+	\end{table}
+
+	\begin{table}[H]
+		\centering
+		\includegraphics[width=0.7\linewidth]{模拟退火程序第二问运行结果.png}
+		\caption{第二问的三次运行结果}
+		\label{fig:表4}
+	\end{table}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\linewidth]{问题二2最优阻尼系数.png}
+		\caption{第二问最优阻尼系数的变化图}
+		\label{fig:表10}
+	\end{figure}
+	使用模拟退火法运行多次的目的是为了避免随机给定的初值经过迭代后落入局部最优解。\\
+	第一问的三次运行结果均显示最大输出功率是280$W$，最优阻尼系数也稳定在37200$N\cdot s\cdot m^{-1}$附近区间,由此可以判断出280$W$是最优解。
+	第二问的三次运行结果最大输出功率均在280$W$附近波动，虽然三次运行求得的比列系数和幂指数的配对并不相同，由此可以得出结论，最大输出功率是280$W$，而达到最大功率时阻尼系数对应的两个变量可以有不同的搭配。
+	\section{问题三模型的建立与求解}
+	\subsection{问题三模型的建立}
+	\subsubsection{问题复述}
+	问题三考虑浮子既垂荡又纵摇的情形，需要计算浮子与振子在波浪激励力和波浪激励力矩作用下前 40 个波浪周期内时间间隔为 0.2 s的垂荡位移与速度和纵摇角位移与角速度。
+	\subsubsection{建模分析}
+	问题三与问题一相类似，问题三是在问题一的基础上增加了浮子的纵摇，但是在假设的前提下，在极短时间内垂荡和纵摇分别独立运动，不会互相影响，由此便可以采用与第一问同样的微分方程模型，用差分法对两种运动分别迭代求解。
+	\subsubsection{模型建立}
+	由角动量定理得
+	$$(I_1+I_3)\frac{d\omega_1}{dt}=M_1+M_2+M_3+M_4+M_5+M_6$$
+	$$I_2\frac{d\omega_2}{dt}=-M_2-M_3+M_7$$
+	由牛顿第二运动定律得
+	$$(m_1+m_2)\frac{dv_1}{dt}=f_1+f_4+f_5+\cos\theta _2(f_2+f_3)$$
+	$$m_2\frac{dv_2}{dt}=-f_2-f_3+f_6$$
+	角速度和角度关系
+	$$\omega_1=\frac{d\theta _1}{dt}$$
+	$$\omega_2=\frac{d\theta _2}{dt}$$
+	速度和位移关系
+	$$v_1=\frac{ds_1}{dt}$$
+	$$v_2=\frac{ds_2}{dt}$$
+	差分方程的初值条件为
+	$$v_1=0$$
+	$$v_2=0$$
+	$$\omega_1=0$$
+	$$\omega_2=0$$
+	$$\theta_1=0$$
+	$$\theta_2=0$$
+	$$s_1=0$$
+	$$s_2=0$$
+
+	静水恢复力
+	$$f_1=\rho g(V-V_0)$$
+	弹簧弹力
+	$$f_2=k(l-l_0)$$
+	直线阻尼器阻力
+	$$f_3=-a_1(v_1\cos\theta_2)-v_2$$
+	兴波阻尼力
+	$$f_4=-k_1v_1$$
+	波浪激励力
+	$$f_5=f\cos\omega t$$
+	重力偏移中轴产生的偏差力
+	$$f_6=mg(1-\cos\theta_2)$$
+	静水恢复力矩
+	$$M_1=-k_3\theta_1$$
+	扭转弹簧力矩
+	$$M_2=-k_4(\theta_1-\theta_2)$$
+	旋转阻尼器力矩
+	$$M_3=-a_2(\omega_1-\omega_2)$$
+	兴波阻尼力矩
+	$$M_4=-k_2\omega_1$$
+	波浪激励力矩
+	$$M_5=L\cos\omega t$$
+	浮子的重力矩
+	$$M_6=m_1gx_1\sin\theta_1$$
+	振子的重力矩
+	$$M_7=m_2gx_2\sin\theta_2$$
+	由平行轴定理可得
+	$$I_c=\frac{m_2}{12}(r^2+3l^2)=\frac{m_2}{12}$$
+	振子的转动惯量
+	$$I_2=I_c+m_2x_2^2$$
+	浮子的单位面积质量
+	$$\sigma=\frac{m_1}{8.28\pi}$$
+	浮子的重心
+	$$x_1=\frac{2\pi\sigma}{m_1}(\int_{0}^{0.8}\frac{x^2}{0.8}dx+\int_{0.8}^{3.8}xdx+\int_{0}^{1}3.8xdx)=2.177$$
+	浮子的转动惯量\upcite{ref2}
+	$$I_1=2\pi\sigma[\int_{0}^{0.8}(\frac{x^3}{1.024}+\frac{x^3}{0.8})dx+\int_{0.8}^{3.8}(\frac{1}{2}+x^2)dx+\int_{0}^{1}(\frac{1}{2}x^3+14.44x)dx]$$
+	对于$l(n)$:\\
+	垂荡变化为：$$-\frac{s_1(n)-s_1(n-1)}{\cos\theta_2(n)+s_2(n)-s_2(n-1)}$$\\
+	纵摇变化为：$$0.8\frac{\cos\theta_1(n)-\cos\theta_2(n)}{\cos\theta_2(n)}$$\\
+	对于$V$:\\
+	水面上体积为$$(3.8-\frac{2.8-s_1(n)}{\cos\theta_1(n)})\pi$$\\
+	则水下体积为$$V=(\frac{49}{15}-3.8+\frac{2.8-s_1(n)}{\cos\theta_1(n)})\pi$$
+	
+	\subsection{问题三模型的求解}
+	\subsubsection{算法设计}
+	通过已知的初值条件，可由第n-1个时刻的速度，位移等已经求出的量，求出第n个时刻的第速度位移等未知的量。
+	由角动量定理得
+	$$(I_1+I_3)\frac{\omega_1(n)}{T}=M_1+M_2+M_3+M_4+M_5+M_6$$
+	$$I_2=\frac{\omega_2(n)-\omega_2(n-1)}{T}=-M_2-M_3+M_7$$
+	由牛顿第二运动定律得
+	$$(m_1+m_2)\frac{v_1(n)-v_1(n-1)}{T}=f_1+f_4+f_5+\cos\theta _2(f_2+f_3)$$
+	$$m_2\frac{v_2(n)-v_2(n-1)}{T}=-f_2-f_3+f_6$$
+	角速度与角度变化关系
+	$$\omega_1=\frac{\theta _1(n)-\theta_1(n-1)}{T}$$
+	$$\omega_2=\frac{\theta _2(n)-\theta_2(n-1)}{T}$$
+	速度与位移变化关系
+	$$v_1=\frac{s_1(n)-s_1(n-1)}{T}$$
+	$$v_2=\frac{s_2(n)-s_2(n-1)}{T}$$
+	\subsubsection{求解与检验}
+	运行程序后可以得到浮子和振子在各个时刻的垂直位移、垂荡速度、纵摇角位移和纵摇角速度，具体数据可见附录部分。其中在时刻10s、20s、40s、60s、100s时浮子和振子的运动数据分别在表6和表7给出。
+	\begin{table}[H]
+		\centering
+		\includegraphics[width=0.7\linewidth]{问题三浮子数据.png}
+		\caption{浮子数据}
+		\label{fig:表7}
+	\end{table}
+	\begin{table}[H]
+		\centering
+		\includegraphics[width=0.7\linewidth]{问题三振子数据.png}
+		\caption{振子数据}
+		\label{fig:表8}
+	\end{table}
+	分析数据后发现浮子和振子在各个时刻的垂荡位移、垂荡速度、纵摇角位移、纵摇角速度都在包含0的一个合理区间内。
+	
+	\section{问题四模型的建立与求解}
+	
+	\subsection{问题四模型的建立}
+	\subsubsection{问题复述}
+	问题四考虑波浪能装置既垂荡又纵摇的情况，需要建立确定直线阻尼器和旋转阻尼器最优阻尼系数的数学模型，求出当直线阻尼器和旋转阻尼器的阻尼系数均在区间 $[0,100000]$ 内取一个常值时的最大输出功率以及相应的最优阻尼系数。
+	\subsubsection{建模分析}
+	问题四与问题二的第二问类似需要计算双变量情况下的最大值。在假设条件下，极短时间内垂荡和纵摇分别独立运动，不会互相影响。由此仍然可以采用模拟退火算法求出最优解。\cite{ref3}
+	\subsubsection{模型建立}
+	结合问题三的模型有
+	$$W_n'=M|[\theta_1(n)-\theta_1(n-1)]-[\theta_2(n)-\theta_2(n-1)]|$$
+	$$max\quad P'=\sum_{0}^{\frac{40}{\omega_1T}}W_n'+\sum_{0}^{\frac{40}{\omega_1T}}W_n$$
+	\subsection{问题四模型的求解}
+	\subsubsection{算法设计}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\linewidth]{问题四流程图.png}
+		\caption{问题四模拟退火流程}
+		\label{fig:表9}
+	\end{figure}
+%	\subsubsection{求解与分析}
+	\subsubsection{求解与检验}
+	问题四的运行结果为最大功率$P'=492W$,其中一组阻尼系数的组合为直线阻尼器的阻尼系数为$20420N\cdot s\cdot m^{-1}$，旋转阻尼器的阻尼系数为$84657N\cdot s\cdot m^{-1}$\par
+	经过多次运行，最大功率稳定在$492W$附近，从而可以确定$492W$是全局最优解，而阻尼系数的多种搭配也都符合区间要求，所以结果的合理性得以验证。
+	\section{灵敏度检验}
+	对于问题一第一问，当波浪激励力振幅增加$1000N$后，浮子和振子的速度位移数据如表8所示。经过对比，
+	\begin{table}[H]
+		\centering
+		\includegraphics[width=0.7\linewidth]{灵敏度分析.png}
+		\caption{浮子和振子在波浪激励力振幅增加1000N后的速度位移图像}
+		\label{fig:表11}
+	\end{table}
+	对于问题三，当波浪激励力$1000N$波浪激励力矩增加$300N$后，浮子和振子的运动数据分别如表9表10所示
+	\begin{table}[H]
+		\centering
+		\includegraphics[width=0.7\linewidth]{第三问浮子灵敏度分析.png}
+		\caption{浮子的运动数据}
+		\label{fig:表12}
+	\end{table}
+	\begin{table}[H]
+		\centering
+		\includegraphics[width=0.7\linewidth]{第三问振子灵敏度分析.png}
+		\caption{振子的运动数据}
+		\label{fig:表13}
+	\end{table}
+
+	\section{模型的评价与推广}
+	\subsection{模型的评价}
+	\subsubsection{模型的优点}
+    \noindent 1.模型简化了垂荡和纵摇的关系，将两者分开考虑，在给定基本条件后便可利用计算机的强大计算能力计算出结果。\\
+	2.使用了差分的方法，将两个运动分解成多个极小时间内的运动计算，再结合计算机的强大算力，计算结果的误差就在可以接受的范围内。\\
+	3.该模型具有较高的普适性，对于其他用到弹簧的领域可以类比调用模型。
+	\subsubsection{模型的缺点}
+	\noindent 1.对于双变量求最优问题使用模拟退火法有一定可能落入局部最优解，需要多次运行程序排除局部最优解。\\
+	2.为了减小计算量，模型将纵摇和垂荡的两个运动分开考虑，这不可避免的产生一定误差。
+	\subsection{模型的改进和推广}
+	\subsubsection{模型的改进}
+	可以通过物理知识建立更精细的微分方程并通过某些数学方法如进行二阶微分，使差分法产生的误差减小。
+	\subsubsection{模型的推广}
+	可以将模型推广到减震弹簧的参数设计上使减震效果达到最优。
+	\begin{thebibliography}{10}
+		\bibitem{ref1}姜楠,刘聪,张萧,徐明奇.波浪能俘获装置的设计和研究[J].太阳能学报,2022,43(08):447-451.DOI:10.19912/j.0254-0096.tynxb.2020-1349.
+		\bibitem{ref2}白望望,杨振斌,杨德州,张中丹,冯智慧.基于动能定理的发电系统机械转动惯量研究[J].机械研究与应用,2022,35(04):148-152+156.DOI:10.16576/j.ISSN.1007-4414.2022.04.039.
+		\bibitem{ref3}Steinbrunn M ,Moerkotte G, Kemper A. Heuristic and Randomized Optimization for the Join Ordering Problem[J ] . The VLDB Journal , 1997 , 6 (3) :8 - 17.
+	\end{thebibliography}
+	\newpage
+	\section{附录}
+\left( 
+	问题一第二问python程序：
+	\begin{lstlisting}
+		import numpy as np                  # 导入模块 numpy 并简写成 np
+		import pandas as pd                 # 导入模块 pandas 并简写成 pd
+		import matplotlib.pyplot as plt     # 导入模块 matplotlib.pyplot 并简写成 plt
+		from math import *                  # 导入模块 math
+		import random                       # 导入模块 random
+		
+		####参数
+		w=1.4005# 入射波浪频率 (s-1)
+		f=6250# 垂荡激励力振幅 (N)
+		dt=0.02# 时间步长
+		T=2*pi/w #周期
+		m3=1335.535# 垂荡附加质量 (kg)
+		k1=656.3616# 垂荡兴波阻尼系数 (N·s/m)
+		m1=4866# 浮子质量 (kg)
+		r1=1# 浮子底半径 (m)
+		h11=3# 浮子圆柱部分高度 (m)
+		h12=0.8# 浮子圆锥部分高度 (m)
+		m2=2433# 振子质量 (kg)
+		r2=0.5# 振子半径 (m)
+		h2=0.5# 振子高度 (m)
+		rho=1025# 海水的密度 (kg/m3)
+		g=9.8# 重力加速度 (m/s2)
+		F_gangdu1=80000# 弹簧刚度 (N/m)
+		L=0.5# 弹簧原长 (m)
+		F_gangdu2=250000# 扭转弹簧刚度 (N·m)
+		#F_t=F_gangdu1*(L1-L)# 弹簧弹力
+		theta=atan(1/0.8) #圆锥角度
+		S=pi*r1**2# 浮子横截面积
+		V0=(m1+m2)/rho # 静止时的排水体积
+		
+		t=np.arange(0,40*T,dt) #时间
+		n=len(t)
+		v1=np.zeros(n, dtype=float)
+		x1=np.zeros(n, dtype=float)
+		v2=np.zeros(n, dtype=float)
+		x2=np.zeros(n, dtype=float)
+		v1[0]=0# 浮子初始位移
+		x1[0]=0# 浮子初始速度
+		v2[0]=0# 振子初始位移
+		x2[0]=0# 振子初始速度
+		for i in range(1,n):
+		F_1 = -rho * g * (S * x1[i-1])  # 静水恢复力
+		F_2 = -F_gangdu1 * (x1[i-1] - x2[i-1])  # 弹力
+		a=abs(v1[i - 1] - v2[i - 1])**0.5
+		zeta1= 10000 * a # 阻尼器阻力
+		F_3 = -zeta1 * (v1[i - 1] - v2[i - 1])  # 阻尼器阻力
+		F_4 = -k1 * v1[i-1]  # 兴波阻尼力
+		F_5 = f * cos(w * i*dt)  # 波浪激励力
+		F_h1 = F_1 + F_2 + F_3 + F_4 + F_5  # 浮子受力
+		F_h2 = -F_2 - F_3  # 振子受力
+		v1[i]=dt/(m1+m3)*F_h1+v1[i-1]#浮子速度
+		v2[i] = dt / m2 * F_h2 + v2[i - 1]#振子速度
+		x1[i]=0.5*(v1[i]+v1[i-1])*dt+x1[i-1]#浮子位移
+		x2[i]=0.5*(v2[i]+v2[i-1])*dt+x2[i-1]#振子位移
+		
+		plt.rcParams['font.sans-serif']=['SimHei']
+		plt.rcParams['axes.unicode_minus']=False
+		plt.figure()
+		plt.plot(t,v2,label='速度（m/s）')
+		plt.plot(t,x2,label='位移（m）')
+		plt.xlabel('时间（s）')
+		plt.title('振子速度和位移变化')
+		plt.legend()
+		
+		plt.figure()
+		plt.plot(t,v1,label='速度（m/s）')
+		plt.plot(t,x1,label='位移（m）')
+		plt.xlabel('时间（s）')
+		plt.title('浮子速度和位移变化')
+		plt.legend()
+		plt.show()
+		
+	\end{lstlisting}
+	问题二第一问python程序：
+	\begin{lstlisting}
+		from math import *                  # 导入math模块
+		import random                       # 导入random模块
+		import pandas as pd                 # 导入pandas模块命名为pd
+		import numpy as np                  # 导入numpy模块命名为np
+		import matplotlib.pyplot as plt     # 导入matplotlib.pyplot模块命名为plt
+		
+		#参数
+		w=2.2143# 入射波浪频率 (s-1)
+		f=4890# 垂荡激励力振幅 (N)
+		#f=5890# 垂荡激励力振幅 (N)
+		T=2*pi/w #周期
+		dt=0.02# 时间步长
+		m3=1165.992# 垂荡附加质量 (kg)
+		k1=167.8395# 垂荡兴波阻尼系数 (N·s/m)
+		m1=4866# 浮子质量 (kg)
+		r1=1# 浮子底半径 (m)
+		h11=3# 浮子圆柱部分高度 (m)
+		h12=0.8# 浮子圆锥部分高度 (m)
+		m2=2433# 振子质量 (kg)
+		r2=0.5# 振子半径 (m)
+		h2=0.5# 振子高度 (m)
+		rho=1025# 海水的密度 (kg/m3)
+		g=9.8# 重力加速度 (m/s2)
+		F_gangdu1=80000# 弹簧刚度 (N/m)
+		L=0.5# 弹簧原长 (m)
+		F_gangdu2=250000# 扭转弹簧刚度 (N·m)
+		
+		S=pi*r1**2# 浮子横截面积
+		V0=(m1+m2)/rho # 静止时的排水体积
+		zeta=10000# 阻尼器阻尼系数
+		
+		t=np.arange(0,40*T,dt) #时间
+		n=len(t)
+		v1=np.zeros(n, dtype=float)
+		x1=np.zeros(n, dtype=float)
+		v2=np.zeros(n, dtype=float)
+		x2=np.zeros(n, dtype=float)
+		W=np.zeros(n, dtype=float)
+		v1[0]=0# 浮子初始位移
+		x1[0]=0# 浮子初始速度
+		v2[0]=0# 振子初始位移
+		x2[0]=0# 振子初始速度
+		W[0]=0# 初始功率
+		# 初始化基本参数
+		def initParameter():
+		t_init = 100     # 初始退火温度
+		t_final = 0            # 终止退火温度
+		n_1 = 70              # 内循环运行次数
+		return t_init,t_final,n_1
+		# Metropolis准则判断是否接受新的阻尼系数
+		def Metropolis(curr_power,prev_power,best_power,prev_x,curr_x,best_x,t_now):
+		# dE新解与原解的差值
+		dE = curr_power - prev_power
+		# 新的阻尼系数对应的平均功率大于当前解，接受新解
+		if dE > 0:
+		accept = True
+		# 新的阻尼系数对应的平均功率大于最优解，将新解保存为最优解
+		if curr_power > best_power:
+		best_x[:] = curr_x[:]
+		best_power = curr_power
+		# 新的阻尼系数对应的平均功率小于当前解，以一定概率接受新解
+		else:
+		# 依据Metropolis 准则计算接受概率
+		p_accept = exp(-dE / t_now)
+		if p_accept > random.random():
+		accept = True
+		else:
+		accept = False
+		# 接受新解，将新解保存为当前解
+		if accept == True:
+		prev_x[:] = curr_x[:]
+		prev_power = curr_power
+		return prev_power,prev_x,best_power,best_x
+		#生成新的决策变量
+		def random_new(k):#k为决策变量列表
+		if k[0]<=2000:
+		k1 = k[0] + random.uniform(0, 1000)
+		elif k[0]>=98000:
+		k1 = k[0] + random.uniform(-1000, 0)
+		else:
+		k1=k[0]+random.uniform(-1000, 1000)
+		if k[1]<=0.02:
+		k2 = k[1] + random.uniform(0, 0.01)
+		elif k[0]>=0.98:
+		k2 = k[1] + random.uniform(-0.01, 0)
+		else:
+		k2 = k[1] + random.uniform(-0.01, 0.01)
+		
+		return [k1,k2]
+		
+		# 设置基本参数
+		t_init,tFinal,n_1 = initParameter()
+		# 设置初始解（当前、最优）
+		t_now  = t_init    #初始化 当前温度
+		#初始化当前决策参数(比例系数[0,100000] 幂指数 [0,1] )
+		prev_x=[20000,0.5]
+		#初始化最优决策参数
+		best_x=prev_x.copy()
+		#计算当前平均输出功率(目标函数)
+		prev_power=W[0]
+		#初始化最大输出功率(目标函数)
+		best_power=prev_power
+		best_power_record = []      # 初始化最大输出功率记录表
+		# 模拟退火
+		# 终止条件
+		while t_now >= tFinal:
+		# 当前温度下，寻找最优阻尼系数
+		for j in range(n_1):
+		# 随机产生新的阻尼系数
+		curr_x=random_new(prev_x)
+		#计算目标函数average power
+		for i in range(1, n):
+		# zeta1=current_x[0]*abs(v1[i - 1] - v2[i - 1])**current_x[1]
+		zeta1 = curr_x[0]
+		F_1 = -rho * g * (S * x1[i - 1])  # 静水恢复力
+		F_2 = -F_gangdu1 * (x1[i - 1] - x2[i - 1])  # 弹力
+		F_3 = -zeta1 * (v1[i - 1] - v2[i - 1])  # 阻尼器阻力
+		F_4 = -k1 * v1[i - 1]  # 兴波阻尼力
+		F_5 = f * cos(w * i * dt)  # 波浪激励力
+		F_h1 = F_1 + F_2 + F_3 + F_4 + F_5  # 浮子受力
+		F_h2 = -F_2 - F_3  # 振子受力
+		v1[i] = dt / (m1 + m3) * F_h1 + v1[i - 1]  # 浮子速度
+		v2[i] = dt / m2 * F_h2 + v2[i - 1]  # 振子速度
+		x1[i] = 0.5 * (v1[i] + v1[i - 1]) * dt + x1[i - 1]  # 浮子位移
+		x2[i] = 0.5 * (v2[i] + v2[i - 1]) * dt + x2[i - 1]  # 振子位移
+		W[i] = abs(F_3 * ((x1[i] - x1[i - 1]) - (x2[i] - x2[i - 1])))
+		W_aver = sum(W)/(40*T)
+		print('W_aver',W_aver,curr_x[0])
+		
+		#判断是否接受新的阻尼系数
+		curr_power = W_aver
+		#print('current_power',current_power)
+		prev_power,prev_x,best_power,best_x=Metropolis(curr_power, prev_power, best_power,prev_x, curr_x, best_x, t_now)
+		# 结束在当前温度的搜索，更新最大平均功率列表
+		best_power_record.append(best_power)             # 将本次温度下的最大输出功率加入记录表
+		#curr_power_record.append(prev_power)
+		t_now = t_now -5
+		print(max(best_power_record))
+		print(best_x)
+		itter=[]
+		for i in range(21):
+		itter.append(i)
+		plt.rcParams['font.sans-serif']=['SimHei']
+		plt.rcParams['axes.unicode_minus']=False
+		plt.figure()
+		plt.plot(itter,best_power_record)
+		
+		plt.xlabel('迭代次数')
+		plt.ylabel('最优解')
+		plt.title('模拟退火求最优解过程')
+		plt.show()
+		
+		
+		
+		
+	\end{lstlisting}
+	问题二第二问python程序：
+	\begin{lstlisting}
+	from math import *                  # 导入math模块
+	import random                       # 导入random模块
+	import pandas as pd                 # 导入pandas模块命名为pd
+	import numpy as np                  # 导入numpy模块命名为np
+	import matplotlib.pyplot as plt     # 导入matplotlib.pyplot模块命名为plt
+	
+	#参数
+	w=2.2143# 入射波浪频率 (s-1)
+	f=4890# 垂荡激励力振幅 (N)
+	T=2*pi/w #周期
+	dt=0.02# 时间步长
+	m3=1165.992# 垂荡附加质量 (kg)
+	k1=167.8395# 垂荡兴波阻尼系数 (N·s/m)
+	m1=4866# 浮子质量 (kg)
+	r1=1# 浮子底半径 (m)
+	h11=3# 浮子圆柱部分高度 (m)
+	h12=0.8# 浮子圆锥部分高度 (m)
+	m2=2433# 振子质量 (kg)
+	r2=0.5# 振子半径 (m)
+	h2=0.5# 振子高度 (m)
+	rho=1025# 海水的密度 (kg/m3)
+	g=9.8# 重力加速度 (m/s2)
+	F_gangdu1=80000# 弹簧刚度 (N/m)
+	L=0.5# 弹簧原长 (m)
+	F_gangdu2=250000# 扭转弹簧刚度 (N·m)
+	S=pi*r1**2# 浮子横截面积
+	
+	t=np.arange(0,40*T,dt) #时间
+	n=len(t)
+	v1=np.zeros(n, dtype=float)
+	x1=np.zeros(n, dtype=float)
+	v2=np.zeros(n, dtype=float)
+	x2=np.zeros(n, dtype=float)
+	P=np.zeros(n, dtype=float)
+	zetazeta=np.zeros(n, dtype=float)
+	
+	# 初始化控制参数
+	def init_parameter():
+	t_init = 100            # 初始退火温度
+	t_final = 0             # 终止退火温度
+	n_1 = 100               # 内循环运行次数
+	return t_init,t_final,n_1
+	
+	# 按照 Metropolis 准则决定是否接受新的阻尼系数
+	def Metropolis(curr_power,prev_power,best_power,prev_x,curr_x,best_x,tNow):
+	# dE 新解与原解的差值
+	dE = curr_power - prev_power
+	# 如果新的阻尼系数对应的平均功率好于当前解，则接受新的阻尼系数
+	if dE > 0:
+	accept = True
+	# 如果新的阻尼系数的目标函数好于最优解，则将新解保存为最优解
+	if curr_power > best_power:
+	best_x[:] = curr_x[:]
+	best_power = curr_power
+	# 如果的阻尼系数的目标函数比当前解差，则以一定概率接受新的阻尼系数
+	else:
+	# 按照Metropolis 判断是否接受新的阻尼系数
+	p_accept = exp(-dE / tNow)
+	if p_accept > random.random():
+	accept = True
+	else:
+	accept = False
+	# 接受新的阻尼系数，并将新解保存为当前解
+	if accept == True:
+	prev_x[:] = curr_x[:]
+	prev_power = curr_power
+	return prev_power,prev_x,best_power,best_x
+	
+	#生成新的决策变量
+	def random_new(k):#k为决策变量列表
+	if k[0]<=4000:
+	k1 = k[0] + random.uniform(0, 2000)
+	elif k[0]>=96000:
+	k1 = k[0] + random.uniform(-2000, 0)
+	else:
+	k1=k[0]+random.uniform(-2000, 2000)
+	
+	if k[1]<=0.04:
+	k2 = k[1] + random.uniform(0, 0.02)
+	elif k[1]>=0.96:
+	k2 = k[1] + random.uniform(-0.02, 0)
+	else:
+	k2=k[1]+random.uniform(-0.02, 0.02)
+	return [k1,k2]
+	
+	# 设置控制参数
+	t_init,t_final,n_1= init_parameter()
+	# 初始化参数（当前、最优）
+	v1[0]=0# 浮子初始位移
+	x1[0]=0# 浮子初始速度
+	v2[0]=0# 振子初始位移
+	x2[0]=0# 振子初始速度
+	
+	t_now  = t_init    #初始化 当前温度
+	#初始化当前决策参数(比例系数[0,100000] 幂指数 [0,1] )
+	prev_x=[50000,0.5]
+	#初始化最优决策参数
+	best_x=prev_x.copy()
+	#初始化当前平均输出功率(目标函数)
+	P[0]=0
+	prev_power=P[0]
+	#初始化最大平均输出功率(目标函数)
+	best_power=prev_power
+	#不同温度下的最大平均功率记录
+	best_power_record = []
+	best_k=[0,0]
+	# 模拟退火
+	# 终止条件
+	while t_now >= t_final:
+	# 当前温度下，求出最大输出功率
+	for k in range(n_1):
+	# 随机产生新的阻尼系数
+	curr_x=random_new(prev_x)
+	#计算目标函数average power
+	for i in range(1, n):
+	zeta1=curr_x[0]*abs(v1[i - 1] - v2[i - 1])**curr_x[1]
+	zetazeta[i] = zeta1
+	F_1 = -rho * g * (S * x1[i - 1])  # 静水恢复力
+	F_2 = -F_gangdu1 * (x1[i - 1] - x2[i - 1])  # 弹力
+	F_3 = -zeta1 * (v1[i - 1] - v2[i - 1])  # 阻尼器阻力
+	F_4 = -k1 * v1[i - 1]  # 兴波阻尼力
+	F_5 = f * cos(w * i * dt)  # 波浪激励力
+	F_h1 = F_1 + F_2 + F_3 + F_4 + F_5  # 浮子受力
+	F_h2 = -F_2 - F_3  # 振子受力
+	v1[i] = dt / (m1 + m3) * F_h1 + v1[i - 1]  # 浮子速度
+	v2[i] = dt / m2 * F_h2 + v2[i - 1]  # 振子速度
+	x1[i] = 0.5 * (v1[i] + v1[i - 1]) * dt + x1[i - 1]  # 浮子位移
+	x2[i] = 0.5 * (v2[i] + v2[i - 1]) * dt + x2[i - 1]  # 振子位移
+	P[i] = abs(F_3 * ((x1[i] - x1[i - 1]) - (x2[i] - x2[i - 1])))
+	P_aver=np.mean(P)
+	print('P_aver',P_aver,curr_x)
+	#判断是否接受新的阻尼系数
+	curr_power = P_aver
+	prev_power,prev_x,best_power,best_x=Metropolis(curr_power, prev_power, best_power,prev_x, curr_x, best_x, t_now)
+	
+	# 完成当前温度的搜索，更新最优解列表
+	best_power_record.append(best_power)                # 将本次温度下的最大平均功率加入记录表
+	t_now = t_now -5
+	print(max(best_power_record))
+	print(best_x)
+	
+	itter=[]
+	
+	for i in range(1,22):
+	itter.append(i)
+	plt.rcParams['font.sans-serif']=['SimHei']
+	plt.rcParams['axes.unicode_minus']=False
+	plt.figure()
+	plt.plot(itter,best_power_record)
+	
+	plt.xlabel('迭代次数')
+	plt.ylabel('最优解')
+	plt.title('模拟退火求最优解过程')
+	plt.show()
+	
+	
+		
+	\end{lstlisting}
+	问题三python程序：
+	\begin{lstlisting}
+		from math import *                  # 导入math模块
+		import random                       # 导入random模块
+		import pandas as pd                 # 导入pandas模块命名为pd
+		import numpy as np                  # 导入numpy模块命名为np
+		import matplotlib.pyplot as plt     # 导入matplotlib.pyplot模块命名为plt
+		
+		####参数
+		#振子 浮子 弹簧的参数
+		rho=1025# 海水的密度 (kg/m3)
+		g=9.8# 重力加速度 (m/s2)
+		m1=4866# 浮子质量 (kg)
+		m2=2433# 振子质量 (kg)
+		m3=1028.876# 垂荡附加质量 (kg)
+		r1=1# 浮子底半径 (m)
+		r2=0.5# 振子半径 (m)
+		h11=3# 浮子圆柱部分高度 (m)
+		h12=0.8# 浮子圆锥部分高度 (m)
+		h2=0.5# 振子高度 (m)
+		k=80000# 弹簧刚度 (N/m)
+		l00=0.5# 弹簧原长 (m)
+		l0=l00-m2*g/k#弹簧初始长度
+		#参数
+		alpha1=10000#直线阻尼器的阻尼系数N·s/m
+		alpha2=1000 #旋转阻尼器的阻尼系数N·m·s
+		k1=683.4558# 垂荡兴波阻尼系数 (N·s/m)
+		k2=654.3383# 纵摇兴波阻尼系数 (N·m·s)
+		k3=8890.7# 静水恢复力矩系数 (N·m)
+		k4=250000# 扭转弹簧刚度 (N·m)
+		I1=31961#浮子的转动惯量(kg·m2)
+		I3=7001.914# 浮子的附加转动惯量(kg·m2)# 纵摇附加转动惯量
+		
+		#f=3640# 垂荡激励力振幅 (N)
+		f=4640# 垂荡激励力振幅 (N)
+		
+		omega=1.7152# 入射波浪频率 (s-1)
+		T=2*pi/omega #周期
+		dt=0.002# 时间步长
+		#L=1690# 纵摇激励力矩振幅 (N·m)
+		L=1990# 纵摇激励力矩振幅 (N·m)
+		
+		V0=(m1+m2)/rho# 初始排水体积
+		x_1 = 2.177
+		t=np.arange(0,40*T,dt) #时间
+		n=len(t)
+		v1=np.zeros(n, dtype=float)
+		x1=np.zeros(n, dtype=float)
+		v2=np.zeros(n, dtype=float)
+		x2=np.zeros(n, dtype=float)
+		omega1=np.zeros(n, dtype=float)
+		theta1=np.zeros(n, dtype=float)
+		omega2=np.zeros(n, dtype=float)
+		theta2=np.zeros(n, dtype=float)
+		l=np.zeros(n, dtype=float)
+		v1[0]=0# 浮子初始速度
+		x1[0]=0# 浮子初始位移
+		v2[0]=0# 振子初始速度
+		x2[0]=0# 振子初始位移
+		l[0]=l0# 弹簧初始长度
+		omega1[0]=0# 浮子初始角速度
+		theta1[0]=0# 浮子初始角位移
+		omega2[0]=0# 振子初始角速度
+		theta2[0]=0# 振子初始角位移
+		
+		
+		for i in range(1,n):
+		z = 2.8 - x1[i - 1]
+		V=(49/15-3.8+z/cos(theta1[i-1]))*pi
+		F_1 = rho * g * (V - V0)  # 静水恢复力
+		F_2 = k * (l[i - 1] - l0)  # 弹力
+		F_3 = -alpha1 * (v1[i - 1] * cos(theta2[i - 1]) - v2[i - 1])  # 阻尼器阻力
+		F_4 = -k1 * v1[i - 1]  # 兴波阻尼力
+		F_5 = f * cos(omega * i * dt)  # 波浪激励力
+		F_6 = m2 * g * (1 - cos(theta2[i - 1]))#重力变化
+		F_h1 = F_1 + (F_2 + F_3)*cos(theta1[i-1]) + F_4 + F_5  # 浮子受力
+		F_h2 = -F_2 - F_3 + F_6  # 振子受力
+		v1[i] = dt / (m1 + m3) * F_h1 + v1[i - 1]  # 浮子速度
+		v2[i] = dt / m2 * F_h2 + v2[i - 1]  # 振子速度
+		x1[i] = 0.5 * (v1[i] + v1[i - 1]) * dt + x1[i - 1]  # 浮子位移
+		x2[i] = 0.5 * (v2[i] + v2[i - 1]) * dt + x2[i - 1]  # 振子位移
+		x_2 = 0.25 + l[i-1]#x2
+		M1 = -k3 * theta1[i - 1]  # 静水恢复力矩
+		M2 = -k4 * (theta1[i - 1] - theta2[i - 1])  # 扭转弹簧力矩
+		M3 = -alpha2 * (omega1[i - 1] - omega2[i - 1])  # 选择阻尼器力矩
+		M4 = -k2 * omega1[i-1]  # 兴波阻尼力矩
+		M5 = L * cos(omega * i * dt)  # 波浪激励力矩
+		M6 = m1 * g * x_1 * sin(theta1[i - 1]) #* sgn(theta1[i - 1])  # 浮子重力矩
+		M7 = m2 * g * x_2 * sin(theta2[i - 1]) #* sgn(theta2[i - 1])  # 振子重力矩
+		I2 = m2 * (0.25 + l[i-1]) ** 2 + m2 / 12 * (3 * 0.25 + 0.25)  # 振子的转动惯量
+		omega1[i]=dt/(I1+I3)*(M1+M2+M3+M4+M5+M6)#浮子角速度
+		omega2[i]=dt/I2*(-M2-M3+M7)#振子角速度
+		theta1[i]=(omega1[i]+omega1[i-1])/2*dt + theta1[i-1]#浮子角位移
+		theta2[i] = (omega2[i]+omega2[i-1])/2 * dt + theta2[i - 1]#振子角位移
+		l[i]=l[i-1]+(x2[i]-x2[i-1])-((x1[i]-x1[i-1])+0.8*(cos(theta1[i])-cos(theta1[i-1])))/cos\
+		(theta2[i - 1])#弹簧长度
+		if i==5000 or i==10000 or i==20000 or i==30000 or i==50000:
+		print(x2[i],v2[i],theta2[i],omega2[i])
+		
+		plt.figure()
+		plt.plot(t,omega2)
+		plt.plot(t,theta2)
+		plt.figure()
+		plt.plot(t,omega1)
+		plt.plot(t,theta1)
+		plt.figure()
+		plt.plot(t,v1)
+		plt.plot(t,x1)
+		plt.figure()
+		plt.plot(t,v2)
+		plt.plot(t,x2)
+		
+		plt.show()
+		
+		
+		
+		
+	\end{lstlisting}
+	问题四python程序：
+	\begin{lstlisting}
+		from math import *                  # 导入math模块
+		import random                       # 导入random模块
+		import pandas as pd                 # 导入pandas模块命名为pd
+		import numpy as np                  # 导入numpy模块命名为np
+		import matplotlib.pyplot as plt     # 导入matplotlib.pyplot模块命名为plt
+		
+		####参数
+		#振子 浮子 弹簧的参数
+		m1=4866# 浮子质量 (kg)
+		m2=2433# 振子质量 (kg)
+		m3=1091.099# 垂荡附加质量 (kg)
+		r1=1# 浮子底半径 (m)
+		r2=0.5# 振子半径 (m)
+		h11=3# 浮子圆柱部分高度 (m)
+		h12=0.8# 浮子圆锥部分高度 (m)
+		h2=0.5# 振子高度 (m)
+		F_gangdu1=80000# 弹簧刚度 (N/m)
+		l_=0.5# 弹簧原长 (m)
+		l0=l_-m2/F_gangdu1#弹簧初始长度
+		rho=1025# 海水的密度 (kg/m3)
+		g=9.8# 重力加速度 (m/s2)
+		
+		#系数
+		k1=528.5018# 垂荡兴波阻尼系数 (N·s/m)
+		k2=1655.909# 纵摇兴波阻尼系数 (N·m·s)
+		k3=8890.7# 静水恢复力矩系数 (N·m)
+		k4=250000# 扭转弹簧刚度 (N·m)
+		
+		#转动惯量
+		I1=31961#浮子的转动惯量(kg·m2)
+		I3=7142.493# 浮子的附加转动惯量 纵摇附加转动惯量 (kg·m2)
+		
+		f=1760# 垂荡激励力振幅 (N)
+		omega=1.9806# 入射波浪频率 (s-1)
+		T=2*pi/omega #周期
+		dt=0.002# 时间步长
+		L=2140# 纵摇激励力矩振幅 (N·m)
+		V0=(m1+m2)/rho# 初始排水体积
+		x_1 = 2.177
+		t=np.arange(0,20*T,dt) #时间
+		n=len(t)
+		v1=np.zeros(n, dtype=float)
+		x1=np.zeros(n, dtype=float)
+		v2=np.zeros(n, dtype=float)
+		x2=np.zeros(n, dtype=float)
+		omega1=np.zeros(n, dtype=float)
+		theta1=np.zeros(n, dtype=float)
+		omega2=np.zeros(n, dtype=float)
+		theta2=np.zeros(n, dtype=float)
+		l=np.zeros(n, dtype=float)
+		P=np.zeros(n, dtype=float)
+		P1=np.zeros(n, dtype=float)
+		
+		# 设置基本参数
+		def init_parameter():
+		t_init = 100            # 初始退火温度
+		t_final = 0             # 终止退火温度
+		n_1 = 100               # 内循环运行次数
+		return t_init,t_final,n_1
+		
+		# Metropolis准则判断是否接受新的阻尼系数
+		def Metropolis(curr_power,prev_power,best_power,prev_x,curr_x,best_x,t_now):
+		# dE 新解与原解的差值
+		dE = curr_power - prev_power
+		# 新的阻尼系数对应的平均功率大于当前解，接受新解
+		if dE > 0:
+		accept = True
+		# 新的阻尼系数对应的平均功率值大于最大平均功率，将新的阻尼系数保存为最优解
+		if curr_power > best_power:
+		best_x[:] = curr_x[:]
+		best_power = curr_power
+		# 新的阻尼系数对应的平均功率小于当前平均功率，以一定概率接受新的阻尼系数
+		else:
+		# 依据Metropolis准则计算接受的概率
+		p_accept = exp(-dE / t_now)
+		if p_accept > random.random():
+		accept = True
+		else:
+		accept = False
+		# 接受新的阻尼系数，将新解保存为当前解
+		if accept == True:
+		prev_x[:] = curr_x[:]
+		prev_power = curr_power
+		return prev_power,prev_x,best_power,best_x
+		
+		#生成新的决策变量
+		def random_new(k):#k为决策变量列表
+		if k[0]<=4000:
+		k1 = k[0] + random.uniform(0, 2000)
+		elif k[0]>=96000:
+		k1 = k[0] + random.uniform(-2000, 0)
+		else:
+		k1=k[0]+random.uniform(-2000, 2000)
+		
+		if k[1]<=4000:
+		k2 = k[1] + random.uniform(0, 2000)
+		elif k[1]>=96000:
+		k2 = k[1] + random.uniform(-2000, 0)
+		else:
+		k2=k[1]+random.uniform(-2000, 2000)
+		return [k1,k2]
+		
+		# 设置基本参数
+		t_init,t_final,n_1= init_parameter()
+		# 初始化参数（当前、最优）
+		v1[0]=0# 浮子初始位移
+		x1[0]=0# 浮子初始速度
+		v2[0]=0# 振子初始位移
+		x2[0]=0# 振子初始速度
+		omega1[0]=0# 浮子初始角速度
+		theta1[0]=0# 浮子初始角位移
+		omega2[0]=0# 振子初始角速度
+		theta2[0]=0# 振子初始角位移
+		t_now  = t_init    #初始化 当前温度
+		#初始化当前决策参数(比例系数[0,100000] 幂指数 [0,1] )
+		prev_x=[50000,50000]
+		#初始化最优决策参数
+		best_x=prev_x.copy()
+		#初始化当前平均输出功率(目标函数)
+		P[0]=0
+		P1[0]=0
+		prev_power=P[0]
+		#初始化最大平均输出功率(目标函数)
+		best_power=prev_power
+		#不同温度下的最大平均功率记录
+		best_power_record = [0]
+		# 模拟退火
+		aa=0
+		# 终止条件
+		while t_now >= t_final:
+		# 当前温度下，寻找最优阻尼系数
+		for k in range(n_1):
+		# 随机产生新的阻尼系数
+		curr_x=random_new(prev_x)
+		alpha1 = curr_x[0]  # 直线阻尼器的阻尼系数N·s/m
+		alpha2 = curr_x[1]  # 旋转阻尼器的阻尼系数N·m·s
+		#计算目标函数average power
+		for i in range(1, n):
+		z = 2.8 - x1[i - 1]
+		V = (49 / 15 - 3.8 + z / cos(theta1[i - 1])) * pi
+		F_1 = rho * g * (V - V0)  # 静水恢复力
+		F_2 = k * (l[i - 1] - l0)  # 弹力
+		F_3 = -alpha1 * (v1[i - 1] * cos(theta2[i - 1]) - v2[i - 1])  # 阻尼器阻力
+		F_4 = -k1 * v1[i - 1]  # 兴波阻尼力
+		F_5 = f * cos(omega * i * dt)  # 波浪激励力
+		F_6 = m2 * g * (1 - cos(theta2[i - 1]))  # 重力变化
+		F_h1 = F_1 + (F_2 + F_3) * cos(theta1[i - 1]) + F_4 + F_5  # 浮子受力
+		F_h2 = -F_2 - F_3 + F_6  # 振子受力
+		v1[i] = dt / (m1 + m3) * F_h1 + v1[i - 1]  # 浮子速度
+		v2[i] = dt / m2 * F_h2 + v2[i - 1]  # 振子速度
+		x1[i] = 0.5 * (v1[i] + v1[i - 1]) * dt + x1[i - 1]  # 浮子位移
+		x2[i] = 0.5 * (v2[i] + v2[i - 1]) * dt + x2[i - 1]  # 振子位移
+		
+		x_2 = 0.25 + l[i - 1]  # x2
+		M1 = -k3 * theta1[i - 1]  # 静水恢复力矩
+		M2 = -k4 * (theta1[i - 1] - theta2[i - 1])  # 扭转弹簧力矩
+		M3 = -alpha2 * (omega1[i - 1] - omega2[i - 1])  # 选择阻尼器力矩
+		M4 = -k2 * omega1[i - 1]  # 兴波阻尼力矩
+		M5 = L * cos(omega * i * dt)  # 波浪激励力矩
+		M6 = m1 * g * x_1 * sin(theta1[i - 1])  # * sgn(theta1[i - 1])  # 浮子重力矩
+		M7 = m2 * g * x_2 * sin(theta2[i - 1])  # * sgn(theta2[i - 1])  # 振子重力矩
+		I2 = m2 * (0.25 + l[i - 1]) ** 2 + m2 / 12 * (3 * 0.25 + 0.25)  # 振子的转动惯量
+		omega1[i] = dt / (I1 + I3) * (M1 + M2 + M3 + M4 + M5 + M6)  # 浮子角速度
+		omega2[i] = dt / I2 * (-M2 - M3 + M7)  # 振子角速度
+		theta1[i] = omega1[i] * dt + theta1[i - 1]  # 浮子角位移
+		theta2[i] = omega2[i] * dt + theta2[i - 1]  # 振子角位移
+		l[i] = l[i - 1] + (x2[i] - x2[i - 1]) - (
+		(x1[i] - x1[i - 1]) + 0.8 * (cos(theta1[i]) - cos(theta1[i - 1]))) / cos \
+		(theta2[i - 1])  # 弹簧长度
+		P[i] = abs(F_3 * ((x1[i] - x1[i - 1]) - (x2[i] - x2[i - 1])))
+		P1[i] = abs(M3 * ((theta1[i] - theta1[i - 1]) - (theta2[i] - theta2[i - 1])))
+		
+		P_aver=sum(P)/(20 * T)
+		P1_aver = sum(P1)/(20 * T)
+		P_P1_aver = sum(P + P1)/(20 * T)
+		print('P_aver',P_aver,P1_aver,P_P1_aver,curr_x)
+		
+		#判断是否接受新的阻尼系数
+		curr_power = P_aver
+		prev_power,prev_x,best_power,best_x=Metropolis(curr_power, prev_power, best_power,prev_x, curr_x, best_x, t_now)
+		# 结束在当前温度的搜索，更新最大平均功率列表
+		best_power_record.append(best_power)         # 本次温度下的最大输出功率加到最大功率记录表
+		t_now = t_now -1
+		print(max(best_power_record))
+		print(best_x)
+		
+		
+	\end{lstlisting}
+\end{document}
